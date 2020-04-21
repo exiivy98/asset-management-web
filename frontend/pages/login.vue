@@ -1,181 +1,104 @@
 <template>
-  <div class="wrapper">
-    <div class="container">
-        <div class="box">
-          <div class="header">
-            <div class="title">LOGIN</div>
-          </div>
-          <div class="body" id="login-form">
-            <div class="form-container">
-            <!--div class="form-container" 
-              :class="{'error' : this.res_ans}"-->
-              <label for="id"></label>
-              <input type="text" name="id" id="ID"
-                placeholder="아이디"
-                v-model="id" ref="id_form">
-            </div>
-            <div class="form-container">
-            <!--div class="form-container" 
-              :class="{'error' : this.res_ans}"-->
-              <label for="password"></label>
-              <input type="text" name="password" id="PASSWORD"
-                placeholder="비밀번호"
-                v-model="password" ref="pd_form">
-            </div>
-            <div class="sign-up">
-              <p class="content">계정이 없으시다면
-                <a href @click.prevent='moveSignUp'
+<div>
+    <div class="logo"></div>
+    <p class="message">로그인 후 이용가능한 서비스입니다</p>
+    <div class="login-container">
+        <v-form>
+            <div class="login-form">
+                <v-text-field 
+                    label="아이디"
+                    type="text"
+                    required
+                />
+                <v-text-field 
+                    label="비밀번호"
+                    type="password"
+                    required
+                />
+                <v-btn type="submit"
+                    width="300px"
+                    color="rgb(10, 80, 150)"
+                    :style="{'color': '#fff'}"
+                >로그인</v-btn>
+                <div :style="{'text-align': 'left'}">
+                    <v-checkbox
+                        label="로그인 상태유지"
+                        class="check-box"
+                        v-model="saveState"
+                    />
+                    <v-checkbox
+                        label="아이디 저장"
+                        class="check-box"
+                        v-model="saveId"
+                    />
+                </div>
                 
-                 class="sign-up-link">회원가입</a>을
-                눌러주세요</p>
             </div>
-          </div>
-          <div class="footer">
-            <a href @click.prevent='onLogin'>로 그 인</a>
-          </div>
-        </div>
+        </v-form>
     </div>
-   </div>
+    <p class="find-message">
+        <span
+            :style="{'color': 'blue'}"
+        >아이디/비밀번호</span> 찾기는
+        <span
+            :style="{'color': 'red'}"
+        >관리자</span>에게 문의해주세요</p>
+</div>
 </template>
 
 <script>
 export default {
-  data() {
-        return {
-            id: '',
-            password: '',
-            title: '자산관리서비스 | 로그인',
+    data(){
+        return{
+            saveState: false,
+            saveId: false,
         }
     },
 
     head(){
         return {
-            title: this.title
+            title: '로그인 | WDFO'
         }
     },
-
-    computed: {
-      user(){
-        return this.$store.state.users.user;
-      }
-    },
-
-    methods: {
-        onLogin() {
-          
-        },
-
-        moveSignUp(){
-          this.$router.push({
-                path: '/signup'
-          });
-        },
-    },
-
-    //middleware: 'loginusers',
-
 }
 </script>
 
 <style scoped>
-.box {
-  width: 330px;
-  -webkit-box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
-  -moz-box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
-  box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
+.logo {
+    height: 80px;
+    background-image: url("../images/WDFO-logo-row.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 1em;
 }
 
-.box .footer a {
+.message{
+    color: rgb(10, 80, 150);
+    font-size: 18px;
+    font-weight: normal;
+
+}
+
+.login-container{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.login-form{
+    margin: 0 auto;
+    width: 300px;
+    padding-top: 20px;
+}
+
+.check-box{
     display: inline-block;
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff;
+    padding-right: 10px;
 }
 
-.title{
-  color: #eaac9d;
+.find-message{
+    font-size: 15px;
+    font-weight: normal;
 }
 
-@media screen and (max-width: 620px) {
-.box {
-    width: 100% !important;
-  }
-}
-
-.header {
-  border-bottom: 3px solid #eaac9d;
-  background-color: #fff;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
-}
-
-.body {
-  background-color: #fff;
-  padding: 2em 1em;
-}
-
-.body .form-container label, .body .form-container input {
-  width: 100%;
-}
-
-.body .form-container label {
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0.5em;
-}
-
-.body .form-container input {
-  font-size: 1em;
-  font-weight: bold;
-  padding: 0.8em 1em;
-  border-style: none;
-  border-bottom-style: solid;
-  border-color: #eee;
-  transition: border-color 1s;
-}
-
-.body .form-container input:focus {
-  outline-style: none;
-  border-color: #eaac9d;
-}
-
-.body .form-container input::placeholder {
-  color: #c2c2c2;
-}
-
-.body .form-container.error label {
-  color: #ff0000;
-}
-
-.body .form-container.error input {
-  background-color: rgba(255, 0, 0, 0.05);
-  border-color: #ff0000;
-}
-
-.body .form-container {
-  margin-bottom: 1.5em;
-}
-
-.footer {
-  background-color: #eaac9d;
-  border-bottom-left-radius: 1.5em;
-  border-bottom-right-radius: 1.5em;
-}
-
-.sign-up{
-  padding-top: 10px;
-  text-align: center;
-}
-
-.sign-up .content{
-  font-size: 0.8em;
-  font-weight: bold;
-  color: #b2b2b2;
-}
-
-.sign-up-link{
-  text-decoration: none;
-  color: #eaac9d
-}
 </style>

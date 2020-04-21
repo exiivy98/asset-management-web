@@ -1,180 +1,266 @@
 <template>
-  <div class="wrapper">
-    <div class="container">
-        <div class="box">
-          <div class="header">
-            <div class="title">SIGN UP</div>
-          </div>
-          <div class="body" id="login-form">
-            <div class="form-container">
-            <!--div class="form-container" 
-              :class="{'error' : this.res_ans}"-->
-              <label for="id"></label>
-              <input type="text" name="id" id="ID"
-                placeholder="아이디"
-                v-model="id" ref="id_form">
-            </div>
-            <div class="form-container">
-            <!--div class="form-container" 
-              :class="{'error' : this.res_ans}"-->
-              <label for="password"></label>
-              <input type="text" name="password" id="PASSWORD"
-                placeholder="비밀번호"
-                v-model="password" ref="pd_form">
-            </div>
-            <div class="sign-up">
-              <p class="content">계정이 없으시다면
-                <a href @click.prevent='moveSignUp'
+<div>
+    <div class="logo"></div>
+    <div class="login-container">
+        <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
+            <div class="login-form">
+                <p :style="{'font-size': '13px',
+                    'color': 'red'
+                }"
+                >*는 필수입력사항입니다</p>
+                <p>아이디* (4~12자)</p>
+                <v-text-field 
+                    label="아이디"
+                    type="text"
+                    v-model="id"
+                    :rules="idRules"
+                    required
+                    solo
+                    clearable
+                />
+                <p>비밀번호* (8~24자)</p>
+                <v-text-field 
+                    label="비밀번호"
+                    required
+                    v-model="password"
+                    :rules="passwordRules"
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show1 ? 'text' : 'password'"
+                    solo
+                    @click:append="show1 = !show1"
+                />
+                <p>비밀번호 확인*</p>
+                <v-text-field 
+                    label="비밀번호 확인"
+                    required
+                    v-model="passwordCheck"
+                    :rules="passwordCheckRules"
+                    :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                    :type="show2 ? 'text' : 'password'"
+                    solo
+                    @click:append="show2 = !show2"
+                />
+                <p>이름*</p>
+                <v-text-field 
+                    label="이름"
+                    type="text"
+                    v-model="name"
+                    required
+                    solo
+                    clearable
+                />
+                <p>성별*</p>
+                <v-radio-group v-model="gender" row
+                    :style="{'margin-top': '0'}"
+                    :rules="[v =>  !!v || '성별을 체크는 필수입니다']"
+                >
+                    <v-radio label="남자" value="male"
+                        color="rgb(10, 80, 150)"
+                    ></v-radio>
+                    <v-radio label="여자" value="female"
+                        color="rgb(10, 80, 150)"
+                    ></v-radio>
+                </v-radio-group>
+                <p>직책</p>
+                <v-text-field 
+                    label="직책"
+                    type="text"
+                    v-model="position"
+                    required
+                    solo
+                    clearable
+                />
+                <p>소속</p>
+                <v-text-field 
+                    label="소속"
+                    type="text"
+                    v-model="department"
+                    required
+                    solo
+                    clearable
+                />
+                <p>연락처*</p>
+                <v-text-field 
+                    label="- 없이 입력"
+                    type="text"
+                    v-model="phone"
+                    :rules="phoneRules"
+                    required
+                    solo
+                    clearable
+                />
+                <div class="none">
+                    <p>관리자 권한</p>
+                    <v-checkbox
+                        label="관리자 권한"
+                        v-model="authorityState"
+                        :style="{'margin-top' : '0',
+                            'margin-bottom' : '1em'
+                        }"
+                    />
+                </div>
+                <v-card>
+                    <v-checkbox
+                        class="check-box"
+                        v-model="checkState"
+                        color="rgb(10, 80, 150)"
+                        :rules="[v =>  !!v || '']"
+                    />
+                    <div class="inline-block">
+                        <p>개인정보활용동의*</p>
+                    </div>
+                    <v-btn type="text"
+                        width="50px"
+                        height="30px"
+                        color="#eee"
+                        class="show-btn"
+                        @click.prevent="showInfomation"
+                    >{{showInfo? '닫기': '보기'}}</v-btn>
+                    <v-container class="info"
+                        :class="{'none' : !this.showInfo}"
+                    >
+                        <p>WDFO 자산관리툴에서는 고객의 데이터 관리를 위해 직원의 데이터를 저장하며, 직원은 이에 동의하지 않을 권리가 있습니다.</p>
+                        <p>직원의 데이터는 회원가입에 필수적인 수집 항목으로 해당 정보를 직원으로부터 제공받지 못하면 WDFO 자산관리툴을 이용할 수 없습니다.</p>
+                        <p>WDFO 자산관리툴에서 수집된 개인 정보는 서비스 이용을 위한 목적 외에는 사용되지 않습니다.</p>
+                        <p>WDFO 자산관리툴에서 수집된 직원의 데이터는 기업과 직원 간 계약된 보관 기간이 지나면 자동으로 삭제됩니다.</p>
+                    </v-container>
+                </v-card>
+                <v-btn type="submit"
+                    width="300px"
+                    color="rgb(10, 80, 150)"
+                    class="signup-btn"
+                    :disabled="this.checkState? false : true"
+                >회원가입</v-btn>
                 
-                 class="sign-up-link">회원가입</a>을
-                눌러주세요</p>
             </div>
-          </div>
-          <div class="footer">
-            <a href @click.prevent='onLogin'>로 그 인</a>
-          </div>
-        </div>
+        </v-form>
     </div>
-   </div>
+</div>  
 </template>
 
 <script>
 export default {
-    data() {
-        return {
+    data(){
+        return{
             id: '',
             password: '',
-            title: '자산관리서비스 | 로그인',
+            passwordCheck: '',
+            name: '',
+            position: '',
+            department: '',
+            gender: '',
+            phone: '',
+            show1: false,
+            show2: false,
+            checkState: false,
+            showInfo: false,
+            authorityState: false,
+            valid: false,
+            idRules: [
+                v => !!v || '아이디는 필수입니다',
+                v => /^[a-zA-Z0-9_]{4,12}$/.test(v) || '아이디가 올바르지 않습니다'
+            ],
+            passwordRules: [
+                v => !!v || '비밀번호는 필수입니다',
+                v => /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]|.*[0-9]).{8,24}$/.test(v)
+                    || '비밀번호가 올바르지 않습니다'
+            ],
+            passwordCheckRules: [
+                v => !!v || '비밀번호 확인은 필수입니다',
+                v => v === this.password || '비밀번호가 동일하지 않습니다'
+            ],
+            phoneRules: [
+                v => !!v || '연락처는 필수입니다',
+                v => /^[0-9]+$/.test(v) || '숫자만 입력해주세요'
+            ],
         }
     },
 
     head(){
         return {
-            title: this.title
+            title: '회원가입 | WDFO'
         }
     },
 
-    computed: {
-      user(){
-        return this.$store.state.users.user;
-      }
-    },
-
     methods: {
-        onLogin() {
-          
+        showInfomation(){
+            this.showInfo = this.showInfo? false : true;
         },
 
-        moveSignUp(){
-          this.$router.push({
-                path: '/signup'
-          });
-        },
+        onSubmitForm(){
+            if(!this.$refs.form.validate()){
+                alert('제대로 입력하지 않거나 체크하지 않은 항목이 있습니다')
+            }
+        }
     },
-
-    //middleware: 'loginusers',
 }
 </script>
 
 <style scoped>
-.box {
-  width: 440px;
-  -webkit-box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
-  -moz-box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
-  box-shadow: 6px 6px 5px 0px rgba(138,138,138,1);
+.logo {
+    height: 80px;
+    background-image: url("../images/WDFO-logo-row.png");
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 1em;
+    margin-top: 2em;
 }
 
-.box .footer a {
+.login-container{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.login-form{
+    margin: 0 auto;
+    width: 300px;
+    padding-top: 20px;
+}
+
+.check-box{
     display: inline-block;
-    font-weight: bold;
-    text-decoration: none;
+    padding-right: 10px;
+}
+
+.find-message{
+    font-size: 15px;
+    font-weight: normal;
+}
+
+.login-form p{
+    text-align: left;
+    padding-bottom: 1em;
+}
+
+.signup-btn{
     color: #fff;
+    margin-top: 1em;
+    margin-bottom: 2em;
 }
 
-.title{
-  color: #eaac9d;
+.check-box{
+    display: inline-block;
+    padding-right: 10px;
 }
 
-@media screen and (max-width: 620px) {
-.box {
-    width: 100% !important;
-  }
+.inline-block{
+    display: inline-block;
+    
 }
 
-.header {
-  border-bottom: 3px solid #eaac9d;
-  background-color: #fff;
-  border-top-left-radius: 1.5em;
-  border-top-right-radius: 1.5em;
+.show-btn{
+    color: #555;
+    margin-top: 1.5em;
+    margin-bottom: 2em;
+    margin-left: 1em;
 }
 
-.body {
-  background-color: #fff;
-  padding: 2em 1em;
+.info{
+    font-size: 13px;
 }
 
-.body .form-container label, .body .form-container input {
-  width: 100%;
-}
-
-.body .form-container label {
-  display: block;
-  font-size: 12px;
-  font-weight: bold;
-  padding: 0.5em;
-}
-
-.body .form-container input {
-  font-size: 1em;
-  font-weight: bold;
-  padding: 0.8em 1em;
-  border-style: none;
-  border-bottom-style: solid;
-  border-color: #eee;
-  transition: border-color 1s;
-}
-
-.body .form-container input:focus {
-  outline-style: none;
-  border-color: #eaac9d;
-}
-
-.body .form-container input::placeholder {
-  color: #c2c2c2;
-}
-
-.body .form-container.error label {
-  color: #ff0000;
-}
-
-.body .form-container.error input {
-  background-color: rgba(255, 0, 0, 0.05);
-  border-color: #ff0000;
-}
-
-.body .form-container {
-  margin-bottom: 1.5em;
-}
-
-.footer {
-  background-color: #eaac9d;
-  border-bottom-left-radius: 1.5em;
-  border-bottom-right-radius: 1.5em;
-}
-
-.sign-up{
-  padding-top: 10px;
-  text-align: center;
-}
-
-.sign-up .content{
-  font-size: 0.8em;
-  font-weight: bold;
-  color: #b2b2b2;
-}
-
-.sign-up-link{
-  text-decoration: none;
-  color: #eaac9d
+.none {
+  display: none !important;
 }
 </style>

@@ -7,3 +7,17 @@ export const mutations = {
         state.user = payload;
     },
 };
+
+export const actions = {
+    signUp({commit}, payload){
+        commit('setUser', payload);
+    },
+
+    logIn({commit}, payload){
+        commit('setUser', payload);
+    },
+
+    logOut({commit}){
+        commit('setUser', null);
+    },
+}

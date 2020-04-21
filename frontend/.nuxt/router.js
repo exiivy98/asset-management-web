@@ -5,6 +5,8 @@ import scrollBehavior from './router.scrollBehavior.js'
 
 const _5cb46242 = () => interopDefault(import('..\\pages\\login.vue' /* webpackChunkName: "pages_login" */))
 const _f39c59e2 = () => interopDefault(import('..\\pages\\signup.vue' /* webpackChunkName: "pages_signup" */))
+const _41f7afba = () => interopDefault(import('..\\pages\\manage\\admin.vue' /* webpackChunkName: "pages_manage_admin" */))
+const _332aa304 = () => interopDefault(import('..\\pages\\manage\\auth.vue' /* webpackChunkName: "pages_manage_auth" */))
 const _d9e681aa = () => interopDefault(import('..\\pages\\index.vue' /* webpackChunkName: "pages_index" */))
 
 // TODO: remove in Nuxt 3
@@ -31,6 +33,14 @@ export const routerOptions = {
     path: "/signup",
     component: _f39c59e2,
     name: "signup"
+  }, {
+    path: "/manage/admin",
+    component: _41f7afba,
+    name: "manage-admin"
+  }, {
+    path: "/manage/auth",
+    component: _332aa304,
+    name: "manage-auth"
   }, {
     path: "/",
     component: _d9e681aa,
