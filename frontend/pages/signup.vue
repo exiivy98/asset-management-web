@@ -110,7 +110,7 @@
                     solo
                     clearable
                 />
-                <div class="non">
+                <div class="none">
                     <p>관리자 권한</p>
                     <v-checkbox
                         label="관리자 권한"

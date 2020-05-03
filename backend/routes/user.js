@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
             department: req.body.department,
             phone: req.body.phone,
             adminState: req.body.adminState,
-            approveState: true,
+            approveState: false,
         });
         res.status(201).json(newUser);
     } catch (err){
