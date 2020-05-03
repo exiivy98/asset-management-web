@@ -9,9 +9,6 @@ import {
 } from './utils'
 
 import NuxtLoading from './components/nuxt-loading.vue'
-import NuxtBuildIndicator from './components/nuxt-build-indicator'
-
-import '..\\node_modules\\vuetify\\dist\\vuetify.css'
 
 import _77068119 from '..\\layouts\\admin.vue'
 import _2d217e9e from '..\\layouts\\auth.vue'
@@ -52,7 +49,7 @@ export default {
       }
     }, [
       loadingEl,
-      h(NuxtBuildIndicator),
+
       transitionEl
     ])
   },
@@ -177,10 +174,6 @@ export default {
     },
 
     setLayout (layout) {
-      if(layout && typeof layout !== 'string') {
-        throw new Error('[nuxt] Avoid using non-string value as layout property.')
-      }
-
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }

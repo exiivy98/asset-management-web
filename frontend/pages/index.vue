@@ -20,8 +20,9 @@ export default {
         return {
 
         }
-    }
+    },
 
+    middleware: 'anonymous',
 }
 </script>
 

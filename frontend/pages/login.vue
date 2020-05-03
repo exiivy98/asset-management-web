@@ -3,36 +3,47 @@
     <div class="logo"></div>
     <p class="message">로그인 후 이용가능한 서비스입니다</p>
     <div class="login-container">
-        <v-form>
+        <v-form ref="form" v-model="valid" @submit.prevent="onSubmitForm">
             <div class="login-form">
                 <v-text-field 
                     label="아이디"
                     type="text"
+                    v-model="id"
+                    :rules="idRules"
                     required
                 />
                 <v-text-field 
                     label="비밀번호"
                     type="password"
+                    v-model="password"
+                    :rules="passwordRules"
                     required
                 />
+                <p v-if="this.idCheck === false"
+                    :style="{'font-size': '13px',
+                    'color': 'red',
+                    'margin-bottom': '1em',
+                }"
+                >등록된 사용자가 아닙니다</p>
+                <p v-else-if="this.passwordCheck === false"
+                    :style="{'font-size': '13px',
+                    'color': 'red',
+                    'margin-bottom': '1em',
+                }"
+                >비밀번호가 올바르지 않습니다</p>
+                <p v-else-if="this.approveCheck === false"
+                    :style="{'font-size': '13px',
+                    'color': 'blue',
+                    'margin-bottom': '1em',
+                }"
+                >승인 대기 중입니다. 관리자에게 문의해주세요</p>
                 <v-btn type="submit"
                     width="300px"
                     color="rgb(10, 80, 150)"
-                    :style="{'color': '#fff'}"
+                    :style="{'color': '#fff', 'margin-bottom': '20px'}"
+                    @click.prevent="onSubmit"
+                    :disabled="this.id == null || this.password == null"
                 >로그인</v-btn>
-                <div :style="{'text-align': 'left'}">
-                    <v-checkbox
-                        label="로그인 상태유지"
-                        class="check-box"
-                        v-model="saveState"
-                    />
-                    <v-checkbox
-                        label="아이디 저장"
-                        class="check-box"
-                        v-model="saveId"
-                    />
-                </div>
-                
             </div>
         </v-form>
     </div>
@@ -52,6 +63,18 @@ export default {
         return{
             saveState: false,
             saveId: false,
+            id: null,
+            password: null,
+            valid: false,
+            idRules: [
+                v => !!v || '아이디는 필수입니다',
+                v => /^[a-zA-Z0-9_]{4,12}$/.test(v) || '아이디 형식이 올바르지 않습니다',
+            ],
+            passwordRules: [
+                v => !!v || '비밀번호는 필수입니다',
+                v => /^(?=.*[a-zA-Z])(?=.*[^a-zA-Z0-9]|.*[0-9]).{8,24}$/.test(v)
+                    || '비밀번호 형식이 올바르지 않습니다'
+            ],
         }
     },
 
@@ -60,6 +83,43 @@ export default {
             title: '로그인 | WDFO'
         }
     },
+
+    computed: {
+        user(){
+            return this.$store.state.users.user;
+        },
+        idCheck(){
+            return this.$store.state.users.idCheck;
+        },
+        passwordCheck(){
+            return this.$store.state.users.passwordCheck;
+        },
+        approveCheck(){
+            return this.$store.state.users.approveCheck;
+        },
+    },
+
+    methods: {
+        onSubmit(){
+            if(!this.$refs.form.validate()){
+                if(!this.idCheck === false || !this.passwordCheck === false){
+                    alert('제대로 입력하지 않거나 체크하지 않은 항목이 있습니다');
+                }
+                
+            }else{
+                this.$store.dispatch('users/logIn', {
+                    id: this.id,
+                    password: this.password,
+                }).then(()=>{
+                    
+                }).catch((err) => {
+                    console.error(err);
+                })
+            }
+        },
+    },
+
+    middleware: 'anonymous',
 }
 </script>
 
@@ -101,4 +161,7 @@ export default {
     font-weight: normal;
 }
 
+.none {
+  display: none !important;
+}
 </style>

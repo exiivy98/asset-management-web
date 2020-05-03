@@ -3,16 +3,16 @@
     <nav>
         <div>
             <v-toolbar dense class="toolbar-background">
-                <nuxt-link to="/manage"
+                <nuxt-link to="/manage/auth/home"
                     :style="{'textDecoration': 'none',
                         'color': '#fff',}"
                     class="title-font"
                 >
-                    {{this.name}}님의 WDFOTools
+                    {{this.user.name}}님의 WDFOTools
                 </nuxt-link>
                 <v-spacer></v-spacer>
                 <v-toolbar-items>
-                    <v-btn text nuxt to="/userinfo">
+                    <v-btn text nuxt to="/manage/auth/profile">
                         <div :style="{'color': '#fff'}"
                             class="title-font"
                         >내 정보</div>
@@ -26,6 +26,7 @@
             </v-toolbar>
         </div>
     </nav>
+    <nuxt />
 </div>
 </template>
 
@@ -33,9 +34,24 @@
 export default {
     data(){
         return{
-            name: '유재석'
+            
         }
-    }
+    },
+
+    computed: {
+        user(){
+            return this.$store.state.users.user;
+        }
+    },
+
+    methods: {
+        onLogout(){
+            this.$store.dispatch('users/logOut');
+            this.$router.push({
+                    path: '/login'
+            });
+        }
+    },
 }
 </script>
 

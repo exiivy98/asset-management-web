@@ -1,0 +1,24 @@
+'use strict';
+
+const Sequelize = require('sequelize');
+const env = process.env.NODE_ENV || 'development';
+const config = require('../config/config.json')[env];
+const db = {};
+
+const sequelize = new Sequelize(config.database, config.username, config.password, config);
+
+db.User = require('./user')(sequelize, Sequelize);
+db.Customer = require('./customer')(sequelize, Sequelize);
+db.Family = require('./family')(sequelize, Sequelize);
+db.Asset = require('./asset')(sequelize, Sequelize);
+db.Quarter = require('./quarter')(sequelize, Sequelize);
+
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+
+module.exports = db;

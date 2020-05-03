@@ -13,6 +13,7 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_plugin_07c0a05c from 'nuxt_plugin_plugin_07c0a05c' // Source: .\\vuetify\\plugin.js (mode: 'all')
+import nuxt_plugin_axios_310a0e85 from 'nuxt_plugin_axios_310a0e85' // Source: .\\axios.js (mode: 'all')
 
 // Component: <ClientOnly>
 Vue.component(ClientOnly.name, ClientOnly)
@@ -59,7 +60,7 @@ async function createApp (ssrContext) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"title":"WDFO 자산관리서비스","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1.0"},{"hid":"description","name":"description","content":"Meta description"}],"link":[{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Noto+Sans+KR&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"style":[],"script":[]},
+    head: {"title":"WDFO 자산관리서비스","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1.0"},{"hid":"description","name":"description","content":"WDFO 자산관리툴"},{"name":"og:title","content":"WDFO 자산관리툴"},{"name":"og:description","content":"WDFO 직원들을 위한 자산관리툴"},{"name":"og:type","content":"website"},{"name":"og:image","content":""},{"name":"og:url","content":""}],"link":[{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=Noto+Sans+KR&display=swap"},{"rel":"shortcut icon","href":"\u002Ffabicon128.png"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss?family=Roboto:100,300,400,500,700,900&display=swap"},{"rel":"stylesheet","type":"text\u002Fcss","href":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002F@mdi\u002Ffont@latest\u002Fcss\u002Fmaterialdesignicons.min.css"}],"script":[{"src":"https:\u002F\u002Fcdn.jsdelivr.net\u002Fnpm\u002Fchart.js@2.9.3\u002Fdist\u002FChart.min.js"}],"style":[]},
 
     store,
     router,
@@ -176,6 +177,10 @@ async function createApp (ssrContext) {
 
   if (typeof nuxt_plugin_plugin_07c0a05c === 'function') {
     await nuxt_plugin_plugin_07c0a05c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_axios_310a0e85 === 'function') {
+    await nuxt_plugin_axios_310a0e85(app.context, inject)
   }
 
   // If server-side, wait for async component to be resolved first

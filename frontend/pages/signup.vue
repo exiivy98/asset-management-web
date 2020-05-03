@@ -18,7 +18,28 @@
                     solo
                     clearable
                 />
-                <p>비밀번호* (8~24자)</p>
+                <v-btn type="text"
+                    width="300px"
+                    color="rgb(10, 80, 150)"
+                    class="overlap-btn"
+                    :disabled="this.id=='' || this.id==null? true : false"
+                    @click.prevent="checkOverlap"
+                >중복확인</v-btn>
+                <p :style="{'font-size': '13px',
+                    'color': 'blue',
+                    'padding-top': '0.5em',
+                }"
+                    :class="{'none': !this.idPossible || this.checkCount == 0}"
+                >사용가능한 아이디입니다</p>
+                <p :style="{'font-size': '13px',
+                    'color': 'red',
+                    'padding-top': '0.5em',
+                }"
+                    :class="{'none': this.idPossible || this.checkCount == 0}"
+                >이미 등록된 아이디입니다</p>
+                
+                <p :style="{'margin-top' : '2em'}"
+                >비밀번호* (8~24자)</p>
                 <v-text-field 
                     label="비밀번호"
                     required
@@ -54,10 +75,10 @@
                     :style="{'margin-top': '0'}"
                     :rules="[v =>  !!v || '성별을 체크는 필수입니다']"
                 >
-                    <v-radio label="남자" value="male"
+                    <v-radio label="남자" value="남자"
                         color="rgb(10, 80, 150)"
                     ></v-radio>
-                    <v-radio label="여자" value="female"
+                    <v-radio label="여자" value="여자"
                         color="rgb(10, 80, 150)"
                     ></v-radio>
                 </v-radio-group>
@@ -93,7 +114,7 @@
                     <p>관리자 권한</p>
                     <v-checkbox
                         label="관리자 권한"
-                        v-model="authorityState"
+                        v-model="adminState"
                         :style="{'margin-top' : '0',
                             'margin-bottom' : '1em'
                         }"
@@ -152,9 +173,10 @@ export default {
             phone: '',
             show1: false,
             show2: false,
+            checkCount: 0,
             checkState: false,
             showInfo: false,
-            authorityState: false,
+            adminState: false,
             valid: false,
             idRules: [
                 v => !!v || '아이디는 필수입니다',
@@ -182,17 +204,60 @@ export default {
         }
     },
 
+    computed: {
+        idPossible(){
+            return this.$store.state.users.idPossible;
+        }
+    },
+
     methods: {
         showInfomation(){
             this.showInfo = this.showInfo? false : true;
         },
 
+        checkOverlap(){
+            
+            this.checkCount++;
+            this.$store.dispatch('users/overLap', {
+                id: this.id,
+            }).then(()=>{
+                console.log('succeed');
+                this.idState = true;
+            }).catch((err) => {
+                console.log(err);
+            });
+        },
+
         onSubmitForm(){
+            if(!this.idPossible){
+                alert('아이디 중복체크를 해주세요');
+            }
+
             if(!this.$refs.form.validate()){
-                alert('제대로 입력하지 않거나 체크하지 않은 항목이 있습니다')
+                alert('제대로 입력하지 않거나 체크하지 않은 항목이 있습니다');
+            }else{
+                this.$store.dispatch('users/signUp', {
+                    id: this.id,
+                    password: this.password,
+                    name: this.name,
+                    gender: this.gender,
+                    position: this.position,
+                    department: this.department,
+                    phone: this.phone,
+                    adminState: this.adminState,
+                }).then(() => {
+                    alert('회원가입 신청이 완료되었습니다. 관리자 승인 후 로그인 가능합니다.')
+                    this.$router.push({
+                        path: '/login',
+                    });
+                }).catch(() => {
+                    alert('회원가입 실패');
+                })
             }
         }
     },
+
+    middleware: 'anonymous',
 }
 </script>
 
@@ -237,6 +302,11 @@ export default {
     color: #fff;
     margin-top: 1em;
     margin-bottom: 2em;
+}
+
+.overlap-btn{
+    color: #fff;
+    margin-top: 0;
 }
 
 .check-box{
