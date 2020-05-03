@@ -36,6 +36,16 @@ module.exports = {
         }
     },
 
+    axios: {
+        browserBaseURL: 'http://localhost:3085',
+        baseURL: 'http://localhost:3085',
+        https: false,
+    },
+
+    server: {
+        port: process.env.PORT || 3000,
+    },
+
     modules: [
         '@nuxtjs/axios',
     ]
