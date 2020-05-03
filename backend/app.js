@@ -64,5 +64,5 @@ app.use('/user', userRouter);
 app.use('/customer', customerRouter);
 
 app.listen(prod? process.env.PORT : 3085, () => {
-    console.log(`백엔드 서버 ${3085}번 포트에서 작동 중`)
+    console.log(`백엔드 서버 ${prod? process.env.PORT : 3085}번 포트에서 작동 중`)
 });
