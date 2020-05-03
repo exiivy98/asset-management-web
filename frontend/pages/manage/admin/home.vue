@@ -249,7 +249,7 @@ export default {
         },
 
         getMyCustomers(){
-            this.$axios.post('http://localhost:3085/customer/list', {
+            this.$axios.post('/customer/list', {
                 id: this.user.id,
             }).then((data)=>{
                 this.myuserlist.push(...data.data);
@@ -260,7 +260,7 @@ export default {
         },
 
         getAllCustomers(){
-            this.$axios.post('http://localhost:3085/customer/all/list', {
+            this.$axios.post('/customer/all/list', {
                 id: this.user.id,
             }).then((data)=>{
                 this.alluserlist.push(...data.data);

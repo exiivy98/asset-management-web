@@ -80,7 +80,7 @@ export default {
         },
 
         reloadList(){
-            this.$axios.post('http://localhost:3085/user/get/approve', {}, {
+            this.$axios.post('/user/get/approve', {}, {
             }).then((data)=>{
                 this.userlist.push(...data.data);
                 this.loading_state = false;

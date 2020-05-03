@@ -172,7 +172,7 @@ export default {
         },
 
         getMyCustomers(){
-            this.$axios.post('http://localhost:3085/customer/list', {
+            this.$axios.post('/customer/list', {
                 id: this.adminId,
             }).then((data)=>{
                 this.myuserlist.push(...data.data);

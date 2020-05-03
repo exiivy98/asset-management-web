@@ -29,7 +29,7 @@ export const actions = {
     // 유저 불러오기 
     async loadUser({commit}){
         try{
-            const res = await this.$axios.get('http://localhost:3085/user', {
+            const res = await this.$axios.get('/user', {
                 withCredentials: true,
             })
             commit('setUser', res.data);
@@ -40,7 +40,7 @@ export const actions = {
 
     // 회원가입 
     signUp({commit}, payload){
-        this.$axios.post('http://localhost:3085/user', {
+        this.$axios.post('/user', {
             id: payload.id,
             password: payload.password,
             name: payload.name,
@@ -58,7 +58,7 @@ export const actions = {
 
     // 아이디 중복 확인
     overLap({commit}, payload){
-        this.$axios.get('http://localhost:3085/user/idOverlap', {
+        this.$axios.get('/user/idOverlap', {
             params: {
                 id: payload.id,
             }
@@ -77,7 +77,7 @@ export const actions = {
 
     // 로그인
     logIn({commit, state}, payload){
-        this.$axios.post('http://localhost:3085/user/login', {
+        this.$axios.post('/user/login', {
             id: payload.id,
             password: payload.password,
         },{
@@ -131,7 +131,7 @@ export const actions = {
 
     // 로그아웃
     logOut({commit}){
-        this.$axios.post('http://localhost:3085/user/logout', {}, {
+        this.$axios.post('/user/logout', {}, {
             withCredentials: true,
         })
             .then((data) => {
@@ -146,7 +146,7 @@ export const actions = {
 
     // 유저 가입 승인
     approveUser({commit}, payload){
-        this.$axios.post('http://localhost:3085/user/approve', {
+        this.$axios.post('/user/approve', {
             payload
         }).then((res) => {
             console.log('succeed');
@@ -158,7 +158,7 @@ export const actions = {
 
     // 유저 정보 변경
     reviseUser({commit}, payload){
-        this.$axios.post('http://localhost:3085/user/revise', {
+        this.$axios.post('/user/revise', {
             payload
         }).then((res) => {
             console.log('succeed');
@@ -170,7 +170,7 @@ export const actions = {
 
     // 유저 삭제
     deleteUser({commit}, payload){
-        this.$axios.post('http://localhost:3085/user/delete', {
+        this.$axios.post('/user/delete', {
             payload
         }).then((res) => {
             console.log('succeed');

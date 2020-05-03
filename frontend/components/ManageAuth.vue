@@ -35,7 +35,7 @@
 <script>
 export default {
     mounted() {
-        this.$axios.post('http://localhost:3085/user/get/all', {
+        this.$axios.post('/user/get/all', {
             id: this.id,
         }, {
         }).then((data)=>{

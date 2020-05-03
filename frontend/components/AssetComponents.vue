@@ -524,7 +524,7 @@ export default {
 
     methods: {
         getCustomerName(){
-            this.$axios.post('http://localhost:3085/customer/name', {
+            this.$axios.post('/customer/name', {
                 payload: this.$route.params.id,
             }).then((res)=>{
                 this.customerName = res.data.name;
@@ -534,7 +534,7 @@ export default {
         },
 
         getFamily(){
-            this.$axios.post('http://localhost:3085/customer/family/get', {
+            this.$axios.post('/customer/family/get', {
                 id: this.$route.params.id,
             }).then((res) => {
                 this.families = res.data;
@@ -557,7 +557,7 @@ export default {
         },
 
         getCustomerAsset(){
-            this.$axios.post('http://localhost:3085/customer/get/customer/asset', {
+            this.$axios.post('/customer/get/customer/asset', {
                 id: this.$route.params.id,
                 quarterId: this.quarterId,
             }).then((res)=>{
@@ -728,7 +728,7 @@ export default {
         },
 
         getFamilyAsset(){
-            this.$axios.post('http://localhost:3085/customer/family/asset', {
+            this.$axios.post('/customer/family/asset', {
                 id: this.$route.params.id,
                 quarterId: this.quarterId,
             }).then((res) => {

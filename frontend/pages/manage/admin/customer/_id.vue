@@ -200,7 +200,7 @@ export default {
 
     methods: {
         getFamily(){
-            this.$axios.post('http://localhost:3085/customer/family/get', {
+            this.$axios.post('/customer/family/get', {
                 id: this.$route.params.id,
             }).then((res) => {
                 this.families = res.data;
@@ -213,7 +213,7 @@ export default {
         },
 
         getQuarters(){
-            this.$axios.post('http://localhost:3085/customer/get/quarter', {
+            this.$axios.post('/customer/get/quarter', {
                 id: this.$route.params.id,
             }).then((data)=>{
                 this.quarters.push(...data.data);
@@ -255,7 +255,7 @@ export default {
         },
 
         getCustomerName(){
-            this.$axios.post('http://localhost:3085/customer/name', {
+            this.$axios.post('/customer/name', {
                 payload: this.$route.params.id,
             }).then((res)=>{
                 this.customerName = res.data.name;

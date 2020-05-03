@@ -86,7 +86,7 @@ export const actions = {
 
     // 고객 추가
     newCustomer({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer', {
+        this.$axios.post('/customer', {
             name: payload.name,
             gender: payload.gender,
             birth: payload.birth,
@@ -102,7 +102,7 @@ export const actions = {
 
     // 고객 삭제
     deleteCustomer({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/delete', {
+        this.$axios.post('/customer/delete', {
             payload
         }).then((res) => {
             console.log('succeed');
@@ -114,7 +114,7 @@ export const actions = {
 
     // 자산 추가
     newAsset({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/customer/asset', {
+        this.$axios.post('/customer/customer/asset', {
             id: payload.id,
             purpose: payload.purpose,
             goal: payload.goal,
@@ -144,7 +144,7 @@ export const actions = {
 
     // 가족 자산 추가
     newFAsset({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/customer/family/asset', {
+        this.$axios.post('/customer/customer/family/asset', {
             id: payload.id,
             family_name: payload.family_name,
             purpose: payload.purpose,
@@ -175,7 +175,7 @@ export const actions = {
 
     // 가족 추가
     newFamily({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/family', {
+        this.$axios.post('/customer/family', {
             name: payload.name,
             relation: payload.relation,
             id: payload.id,
@@ -188,7 +188,7 @@ export const actions = {
 
     // 분기 추가
     newQuarter({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/new/quarter', {
+        this.$axios.post('/customer/new/quarter', {
             name: payload.name,
             customerId: payload.customerId,
         }).then(() => {
@@ -200,7 +200,7 @@ export const actions = {
 
     // 분기 삭제
     deleteQuarter({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/delete/quarter', {
+        this.$axios.post('/customer/delete/quarter', {
             payload: payload,
         }).then(() => {
             location.reload();
@@ -211,7 +211,7 @@ export const actions = {
 
     // 자산 삭제
     deleteAsset({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/delete/asset', {
+        this.$axios.post('/customer/delete/asset', {
             payload: payload,
         }).then(() => {
             location.reload();
@@ -222,7 +222,7 @@ export const actions = {
 
     // 가족 삭제
     deleteFamily({commit}, payload){
-        this.$axios.post('http://localhost:3085/customer/delete/family', {
+        this.$axios.post('/customer/delete/family', {
             payload: payload,
         }).then(() => {
             location.reload();

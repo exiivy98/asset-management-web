@@ -37,8 +37,8 @@ module.exports = {
     },
 
     axios: {
-        browserBaseURL: 'http://localhost:3085',
-        baseURL: 'http://localhost:3085',
+        browserBaseURL: process.env.NODE_ENV === 'production' ? 'http://api.wdfo.com' : 'http://localhost:3085',
+        baseURL: process.env.NODE_ENV === 'production' ? 'http://api.wdfo.com' : 'http://localhost:3085',
         https: false,
     },
 
