@@ -55,22 +55,22 @@ Chart.js를 활용한 데이터 시각화
 
 | 기술         | 버전 | 설명                        |
 | ------------ | ---- | --------------------------- |
-| **Nuxt.js**  | 2.12 | Vue.js 기반 SSR 프레임워크  |
-| **Vue.js**   | 2.6  | 프론트엔드 프레임워크       |
-| **Vuetify**  | 2.2  | Material Design UI 컴포넌트 |
-| **Axios**    | 0.19 | HTTP 클라이언트             |
+| **Nuxt.js**  | 2.18 | Vue.js 기반 SSR 프레임워크  |
+| **Vue.js**   | 2.7  | 프론트엔드 프레임워크       |
+| **Vuetify**  | 2.7  | Material Design UI 컴포넌트 |
+| **Axios**    | 1.7  | HTTP 클라이언트             |
 | **Chart.js** | 2.9  | 데이터 시각화 라이브러리    |
 
 ### Backend
 
 | 기술                | 버전 | 설명                            |
 | ------------------- | ---- | ------------------------------- |
-| **Express.js**      | 4.17 | Node.js 웹 프레임워크           |
-| **Sequelize**       | 5.21 | ORM (Object-Relational Mapping) |
+| **Express.js**      | 4.21 | Node.js 웹 프레임워크           |
+| **Sequelize**       | 6.37 | ORM (Object-Relational Mapping) |
 | **MySQL**           | -    | 관계형 데이터베이스             |
-| **Passport.js**     | 0.4  | 인증 미들웨어                   |
-| **bcrypt**          | 4.0  | 비밀번호 해싱                   |
-| **express-session** | 1.17 | 세션 관리                       |
+| **Passport.js**     | 0.7  | 인증 미들웨어                   |
+| **bcrypt**          | 5.1  | 비밀번호 해싱                   |
+| **express-session** | 1.18 | 세션 관리                       |
 
 ### Security
 
@@ -174,7 +174,7 @@ asset-management-web/
 
 ### 요구사항
 
-- Node.js 12.x 이상
+- Node.js 18.x 이상
 - MySQL 5.7 이상
 
 ### 설치
