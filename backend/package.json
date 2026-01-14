@@ -10,24 +10,24 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^4.0.1",
-    "cookie-parser": "^1.4.5",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
-    "cross-env": "^7.0.2",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "helmet": "^3.22.0",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-session": "^1.18.1",
+    "helmet": "^8.0.0",
     "hpp": "^0.2.3",
     "morgan": "^1.10.0",
-    "mysql2": "^2.1.0",
-    "passport": "^0.4.1",
+    "mysql2": "^3.11.4",
+    "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "pm2": "^4.4.0",
-    "sequelize": "^5.21.6"
+    "pm2": "^5.4.3",
+    "sequelize": "^6.37.5"
   },
   "devDependencies": {
-    "nodemon": "^2.0.3",
-    "sequelize-cli": "^5.5.1"
+    "nodemon": "^3.1.7",
+    "sequelize-cli": "^6.6.2"
   }
 }

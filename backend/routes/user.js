@@ -81,11 +81,13 @@ router.post('/login', (req, res, next) => {
 
 
 // 로그아웃
-router.post('/logout', (req, res) => {
+router.post('/logout', (req, res, next) => {
     if(req.isAuthenticated()){
-        req.logout();
-        req.session.destroy();
-        return res.status(200).send('로그아웃 되었습니다.');
+        req.logout((err) => {
+            if (err) { return next(err); }
+            req.session.destroy();
+            return res.status(200).send('로그아웃 되었습니다.');
+        });
     }
 });
 

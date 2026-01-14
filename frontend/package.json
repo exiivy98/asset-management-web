@@ -12,15 +12,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@nuxtjs/axios": "^5.10.0",
-    "@nuxtjs/moment": "^1.6.0",
-    "@nuxtjs/vuetify": "^1.11.0",
-    "axios": "^0.19.2",
-    "cross-env": "^7.0.2",
-    "express": "^4.17.1",
-    "nuxt": "^2.12.2",
-    "pm2": "^4.4.0",
-    "vue": "^2.6.11",
-    "vuetify": "^2.2.19"
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/moment": "^1.6.1",
+    "@nuxtjs/vuetify": "^1.12.3",
+    "axios": "^1.7.7",
+    "cross-env": "^7.0.3",
+    "express": "^4.21.1",
+    "nuxt": "^2.18.1",
+    "pm2": "^5.4.3",
+    "vue": "^2.7.16",
+    "vuetify": "^2.7.2"
   }
 }
